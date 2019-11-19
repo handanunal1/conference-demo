@@ -1,12 +1,18 @@
 package com.pluralsight.conferencedemo.models;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity(name = "speakers")
+import javax.persistence.*;
+import java.util.List;
 
+import org.hibernate.annotations.Type;
+
+@Entity(name = "speakers")
 public class Speaker {
 
 
@@ -18,9 +24,79 @@ public class Speaker {
     private String title;
     private String company;
     private String bio;
+
+    @Lob
+    @Type(type="org.hibernate.type.BinaryType")
+    private byte[] speaker_photo;
+
     public Speaker() {
 
     }
 
+    @ManyToMany(mappedBy = "speakers")
+    private List<Session> sessions;
 
+    public List<Session> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(List<Session> sessions) {
+        this.sessions = sessions;
+    }
+
+    public byte[] getSpeaker_photo() {
+        return speaker_photo;
+    }
+
+    public void setSpeaker_photo(byte[] speaker_photo) {
+        this.speaker_photo = speaker_photo;
+    }
+
+    public Long getSpeaker_id() {
+        return speaker_id;
+    }
+
+    public void setSpeaker_id(Long speaker_id) {
+        this.speaker_id = speaker_id;
+    }
+
+    public String getFirst_name() {
+        return first_name;
+    }
+
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
+    }
+
+    public String getLast_name() {
+        return last_name;
+    }
+
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
 }
