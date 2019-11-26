@@ -7,8 +7,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
-@Table(name="speakers")
+@Entity(name = "speakers")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Speaker {
     @Id
@@ -22,6 +21,7 @@ public class Speaker {
     private String speaker_bio;
 
     @Lob
+    @Type(type="org.hibernate.type.BinaryType")
     private byte[] speaker_photo;
 
     @ManyToMany(mappedBy = "speakers")
